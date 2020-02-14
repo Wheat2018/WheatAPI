@@ -39,3 +39,4 @@
 *.tlog
 *.lastbuildstate
 *.idb
+*.ipch
