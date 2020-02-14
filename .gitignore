@@ -38,3 +38,4 @@
 *.log
 *.tlog
 *.lastbuildstate
+*.idb
