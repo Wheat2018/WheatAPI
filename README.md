@@ -13,14 +13,14 @@ Wheat同学的一套C++接口及方法
 
 
 
-###### MyTimer静态链接库项目
+## MyTimer静态链接库项目
 
 - Wheat同学封装的计时器类。
 
 - 可以实现在Windows/Linux下的毫秒级（或更精确）的计时操作。并支持多点计时、帧率检测、帧率控制、控制台输出等操作。详细见[MyTimer.h](https://github.com/Wheat2018/WheatAPI/blob/master/include/MyTimer.h)头文件。
 
 
-###### ParameterManager静态链接库项目
+## ParameterManager静态链接库项目
 
 - Wheat同学封装的参数管理类。
 
@@ -31,17 +31,17 @@ Wheat同学的一套C++接口及方法
 - 另外这个项目中还定义了几个全局通用函数（窄/宽字符分割函数、基于PPL库及Lambda的通用并发处理函数、获取目录下所有文件名列表等）
 
 
-###### MyVector.hpp
+## MyVector.hpp
 
 - 容器类泛型，包括动态数组MyArray、变长向量MyVector。
 
 
-###### MyMat.hpp、MyMat_Solve.hpp
+## MyMat.hpp、MyMat_Solve.hpp
 
 - 矩阵类（试验阶段）
 
 
-###### Vector3.hpp
+## Vector3.hpp
 
 - 三维向量类（试验阶段）
 
