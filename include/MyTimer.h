@@ -252,8 +252,8 @@ public:
 	||		bool sw = true;																	||
 	||																						||
 	||		while(1) {																		||
-	||			timer.DoPerSpell(2, 1, (void **)&sw, [](int argc, void** argv, float){		||
-	||				*(bool*)argv ^= 1;														||
+	||			timer.DoInFPS(2, [&](float){												||
+	||				sw ^= 1;																||
 	||			});																			||
 	||			Sleep(1);																	||
 	||		}																				||
@@ -317,7 +317,7 @@ public:
 		Ê¾    Àý:	MyTimer timer;
 					timer.Start();
 					while(1) {
-						timer.DoPerSpell(120, 0, nullptr, [](int, void**, float){
+						timer.DoInFPS(120, [](float){
 							cout << "Hello World!" << endl;
 						});
 						Sleep(1);
@@ -341,11 +341,8 @@ public:
 	||		MyTimer timer;																	||
 	||		timer.Start();																	||
 	||																						||
-	||		bool sw = true;																	||
-	||																						||
 	||		while(1) {																		||
-	||			timer.DoPerSpell(2, 1, (void**)&timer,[](int argc, void** argv, float t){	||
-	||				MyTimer& timer = *(MyTimer*)argv;										||
+	||			timer.DoInFPS(2,[&](float t){												||
 	||				cout << "\rFPS:" << timer.GetFPS();										||
 	||				});																		||
 	||			timer.ControlFPS(120);														||
