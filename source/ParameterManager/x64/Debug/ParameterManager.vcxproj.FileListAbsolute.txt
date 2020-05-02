@@ -1,0 +1,2 @@
+E:\C++\WheatAPI\source\x64\Debug\ParameterManager.pdb
+E:\C++\WheatAPI\source\ParameterManager\x64\Debug\ParameterManager.pdb
