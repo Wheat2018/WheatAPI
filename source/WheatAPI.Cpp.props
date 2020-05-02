@@ -3,10 +3,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(SolutionDir)..\..\library\$(platform)\</OutDir>
-    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
-    <IntDir>$(platform)\$(Configuration)\</IntDir>
-    <IncludePath>E:\C++\WheatAPI\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath);$(WheatAPI_PATH)\include</IncludePath>
+    <LibraryPath>$(LibraryPath);$(WheatAPI_PATH)\library</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup />
   <ItemGroup />

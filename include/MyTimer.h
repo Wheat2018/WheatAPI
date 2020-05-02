@@ -14,19 +14,21 @@ extern "C"
 #include <functional>
 
 #define window
-#ifdef _WIN64
+
+#ifdef window
+#ifdef _WIN32
+#define PLATFORM "x86"
+#else
+#define PLATFORM "x64"
+#endif // _WIN64
 #ifdef _DEBUG
-#pragma comment(lib,"x64\\MyTimer_Debug.lib") 
+#define CONFIGURATION "Debug"
 #else
-#pragma comment(lib,"x64\\MyTimer_Release.lib") 
+#define CONFIGURATION "Release"
 #endif // _DEBUG
-#else
-#ifdef _DEBUG
-#pragma comment(lib,"Win32\\MyTimer_Debug.lib") 
-#else
-#pragma comment(lib,"Win32\\MyTimer_Release.lib") 
-#endif // _DEBUG
-#endif
+
+#pragma comment(lib,PLATFORM "\\" CONFIGURATION "\\MyTimer.lib") 
+#endif // window
 
 class MyTimer {
 private:
@@ -61,7 +63,7 @@ public:
 	/*===========================================================================================================*/
 	
 	/********************************开放属性***********************************/
-	std::vector<std::string> states;
+
 	/*
 		变量名称:	states
 		简    述:	记录了每个时间节点字符串类型名称，Start()函数将容器清空，
@@ -72,8 +74,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	std::vector<std::string> states;
 
-	std::vector<float> times;
 	/*
 		变量名称:	times
 		简    述:	记录了每个时间节点毫秒级时间，Start()函数将容器清空，并加
@@ -84,10 +86,10 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	std::vector<float> times;
 
 
 	/********************************成员函数***********************************/
-	MyTimer();
 	/*
 		函数名称:	MyTimer
 		简    述:	构造函数，主要内容为获取时钟参数等。通常，MyTimer实例何时
@@ -103,8 +105,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	MyTimer();
 
-	void Start();
 	/*
 		函数名称:	Start
 		简    述:	计时开始。本函数清空节点容器，添加首个计时节点"Start"，计时
@@ -120,8 +122,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	void Start();
 
-	float GetTime();
 	/*
 		函数名称:	GetTime
 		简    述:	获取精准时间。函数计算当前系统时钟与记录值之差，获得从Start()
@@ -142,6 +144,7 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	float GetTime();
 
 
 
@@ -170,7 +173,7 @@ public:
 	||		cout << timer.EachTimes() << endl;			||
 	||	}												||
 	||==================================================*/
-	void MarkTime(std::string state);
+
 	/*
 		函数名称:	MarkTime
 		简    述:	标记时间节点。函数向节点容器中添加节点名称及当前GetTime()返回
@@ -188,8 +191,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	void MarkTime(std::string state);
 
-	float operator()(std::string state);
 	/*
 		函数名称:	operator()
 		简    述:	括号运算符重载，作用为获取当前节点容器中某个名称的节点和上一个
@@ -204,8 +207,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	float operator()(std::string state);
 
-	std::string ToString(int precision = 3);
 	/*
 		函数名称:	ToString
 		简    述:	将全部节点以特定格式转换成字符串。
@@ -219,8 +222,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	std::string ToString(int precision = 3);
 
-	std::string EachTimes(int precision = 3);
 	/*
 		函数名称:	ToString
 		简    述:	将全部节点以特定格式转换成字符串。
@@ -234,6 +237,7 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	std::string EachTimes(int precision = 3);
 
 
 
@@ -261,8 +265,6 @@ public:
 	||	}																					||
 	||==================================================*===================================*/
 
-	void DoInFPS(float fps, int argc, void* argv[], void(*func)(int argc, void** argv, float call_times),bool fps_limit = true , bool focus_on_interval = false);
-	void DoInFPS(float fps, std::function<void(float)> func,bool fps_limit = true , bool focus_on_interval = false);
 	/*
 		函数名称:	DoInFPS
 		简    述:	以给定的帧率(FPS)调用函数指针func，并传入参数argc, argv。
@@ -312,7 +314,7 @@ public:
 					当本函数调用频率小于给定帧率时，func函数调用频率等于本函数调
 					用频率，func函数内部可以根据传入的doInFPS_startTime值判断当前
 					理应为第几次调用，以此跳过缺失的帧。
-					>>第二行的重载函数是具有C++ Lambda特性支持的函数变体。在旧标准
+					>>第一行的重载函数是具有C++ Lambda特性支持的函数变体。在旧标准
 					下编译，应该删除该函数。
 		示    例:	MyTimer timer;
 					timer.Start();
@@ -325,6 +327,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	void DoInFPS(float fps, std::function<void(float)> func,bool fps_limit = true , bool focus_on_interval = false);
+	void DoInFPS(float fps, int argc, void* argv[], void(*func)(int argc, void** argv, float call_times),bool fps_limit = true , bool focus_on_interval = false);
 
 
 
@@ -352,7 +356,6 @@ public:
 	||	}																					||
 	||======================================================================================*/
 
-	void MarkFPS();
 	/*
 		函数名称:	MarkFPS
 		简    述:	测量某处FPS值
@@ -372,8 +375,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	void MarkFPS();
 
-	float GetFPS();
 	/*
 		函数名称:	GetFPS
 		简    述:	获取测量的FPS值，多次取平均，平均次数由静态常值变量aveTimes决
@@ -394,8 +397,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	float GetFPS();
 
-	void ControlFPS(float targetFPS);
 	/*
 		函数名称:	ControlFPS
 		简    述:	阻塞延时函数。能够精准调控函数入口处的FPS值，需配合MarkFPS()使
@@ -416,8 +419,8 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	void ControlFPS(float targetFPS);
 
-	void ControlFPS_Rough(float targetFPS);
 	/*
 		函数名称:	ControlFPS_Rough
 		简    述:	阻塞延时函数。能够粗略调控函数入口处的FPS值，需配合MarkFPS()使
@@ -438,6 +441,7 @@ public:
 		作    者:	Wheat
 		最后修改:	2019.03.02
 	*/
+	void ControlFPS_Rough(float targetFPS);
 
 
 };

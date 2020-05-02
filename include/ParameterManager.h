@@ -18,19 +18,22 @@ extern "C"
 #include <ppl.h>
 #include <sstream>
 
-#ifdef _WIN64
+#define window
+
+#ifdef window
+#ifdef _WIN32
+#define PLATFORM "x86"
+#else
+#define PLATFORM "x64"
+#endif // _WIN64
 #ifdef _DEBUG
-#pragma comment(lib,"x64\\ParameterManager_Debug.lib") 
+#define CONFIGURATION "Debug"
 #else
-#pragma comment(lib,"x64\\ParameterManager_Release.lib") 
+#define CONFIGURATION "Release"
 #endif // _DEBUG
-#else
-#ifdef _DEBUG
-#pragma comment(lib,"Win32\\ParameterManager_Debug.lib") 
-#else
-#pragma comment(lib,"Win32\\ParameterManager_Release.lib") 
-#endif // _DEBUG
-#endif
+
+#pragma comment(lib,PLATFORM "\\" CONFIGURATION "\\ParameterManager.lib") 
+#endif // window
 
 typedef std::string Str;
 typedef std::vector<Str> StrVec;
