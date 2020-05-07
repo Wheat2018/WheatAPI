@@ -16,10 +16,10 @@ extern "C"
 #define window
 
 #ifdef window
-#ifdef _WIN32
-#define PLATFORM "x86"
-#else
+#ifdef _WIN64
 #define PLATFORM "x64"
+#else
+#define PLATFORM "x86"
 #endif // _WIN64
 #ifdef _DEBUG
 #define CONFIGURATION "Debug"
